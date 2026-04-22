@@ -3,113 +3,454 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo Komponen UI</title>
+    <title>Panduan Dasar Komponen UI</title>
+    
+    <!-- Menggunakan font modern (Outfit) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* CSS Dasar untuk Styling */
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f4f4f9; }
+        /* CSS Variabel untuk memudahkan penggantian tema warna */
+        :root {
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --bg: #F9FAFB;
+            --surface: #FFFFFF;
+            --text-main: #111827;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+            --code-bg: #1F2937;
+            --code-text: #E5E7EB;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 4rem;
+        }
+
+        /* 1. Halaman Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #818CF8 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-bottom-left-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.05em;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 1rem auto 0 auto;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        /* 2. Style Kotak Pembelajaran (Section) */
+        .component-section {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+            border: 1px solid var(--border);
+            transition: transform 0.2s;
+        }
         
-        /* 1. Navigation */
-        nav { background: #333; color: white; padding: 1rem; display: flex; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-        nav a { color: white; text-decoration: none; margin: 0 10px; }
+        .component-section:hover {
+            transform: translateY(-2px);
+            border-color: #C7D2FE;
+        }
 
-        .container { padding: 20px; max-width: 1000px; margin: auto; }
+        .section-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px dashed var(--border);
+        }
 
-        /* 2. Card Element */
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-        /* 3. Button Variants */
-        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: 0.3s; }
-        .btn-primary { background: #007bff; color: white; }
-        .btn-loading { background: #ccc; cursor: not-allowed; }
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
 
-        /* 4. Form Elements */
-        .form-group { margin-bottom: 15px; }
-        input[type="text"], textarea, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; }
+        /* 3. Layout Grid Demo & Kode */
+        .demo-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        @media (max-width: 768px) {
+            .demo-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .demo-box {
+            padding: 2rem;
+            background: #F3F4F6;
+            border-radius: var(--radius-md);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #D1D5DB;
+        }
+
+        /* Style Format Kode */
+        .code-box {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .code-box::before {
+            content: "HTML";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #4B5563;
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 0 0 0 var(--radius-md);
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* --- PUSAT GAYA KOMPONEN (Untuk di dalam kotak Demo) --- */
         
-        /* 5. List & Tabs */
-        .tab-menu { display: flex; list-style: none; padding: 0; border-bottom: 2px solid #ddd; }
-        .tab-menu li { padding: 10px 20px; cursor: pointer; background: #eee; margin-right: 5px; }
-        .tab-menu li.active { background: #007bff; color: white; }
+        /* Tombol (Buttons) */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+        }
 
-        /* Search Bar */
-        .search-bar { width: 100%; padding: 10px; border-radius: 20px; border: 1px solid #ccc; outline: none; }
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: #EEF2FF;
+        }
+
+        /* Kartu (Cards) */
+        .demo-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 300px;
+            text-align: left;
+        }
+        
+        .demo-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+        }
+
+        .demo-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            color: var(--text-main);
+        }
+        
+        .demo-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Formulir (Forms) */
+        .form-group {
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        /* Tabs (Navigasi Kecil) */
+        .demo-tabs {
+            display: flex;
+            list-style: none;
+            background: #E5E7EB;
+            padding: 0.3rem;
+            border-radius: var(--radius-md);
+            gap: 0.2rem;
+            width: 100%;
+        }
+
+        .demo-tabs li {
+            flex: 1;
+            text-align: center;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            border-radius: 0.4rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: 0.2s;
+        }
+
+        .demo-tabs li.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .demo-tabs li:hover:not(.active) {
+            color: var(--text-main);
+            background: #D1D5DB;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo"><strong>DevProject</strong></div>
-        <div class="links">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </div>
-    </nav>
+    <header>
+        <h1>Panduan Dasar Komponen UI</h1>
+        <p>Belajar membuat elemen visual antarmuka website (UI) yang interaktif, modern, dan rapi untuk pemula.</p>
+    </header>
 
     <div class="container">
-        <div class="form-group">
-            <input type="text" class="search-bar" placeholder="Cari komponen (Search bar)...">
+        
+        <!-- INTRO -->
+        <div style="background: #EEF2FF; padding: 1.5rem; border-radius: 0.75rem; border-left: 5px solid var(--primary);">
+            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">👋 Selamat Datang!</h3>
+            <p style="color: var(--text-main);">Halaman ini dirancang khusus untuk pemula. Di sebelah kiri, Anda bisa mencoba berinteraksi langsung dengan komponen UI. Di sebelah kanan, terdapat kode HTML nya yang bisa Anda pelajari dan tiru.</p>
         </div>
 
-        <ul class="tab-menu">
-            <li class="active">Overview</li>
-            <li>Settings</li>
-            <li>Profile</li>
-        </ul>
-
-        <div class="card">
-            <h3>Visual Element: Card & Image</h3>
-            <img src="https://via.placeholder.com/150" alt="Sample Image" style="border-radius: 8px; margin-bottom: 10px;">
-            <p>Ini adalah contoh komponen <strong>Card</strong> yang di dalamnya terdapat <strong>Image</strong> dan <strong>Anchor/Link</strong>.</p>
-            <a href="#" style="color: #007bff;">Baca selengkapnya (Anchor)</a>
-        </div>
-
-        <div class="card">
-            <h3>Button Variants</h3>
-            <button class="btn btn-primary">Submit Button</button>
-            <button class="btn btn-loading">Loading...</button>
-            <button class="btn" style="background: #28a745; color: white;">Toggle Button</button>
-        </div>
-
-        <div class="card">
-            <h3>Form Components</h3>
-            <form>
-                <div class="form-group">
-                    <label>Text Input:</label>
-                    <input type="text" placeholder="Masukkan nama...">
+        <!-- 1. BUTTON COMPONENT -->
+        <section class="component-section">
+            <div class="section-header">
+                <h2>🖱️ Buttons (Tombol)</h2>
+                <p>Elemen interaktif utama dalam website. Gunakan warna berbeda untuk menunjukkan aksi utama (Primary) dan aksi pendukung (Secondary).</p>
+            </div>
+            <div class="demo-layout">
+                <!-- Area Tampilan -->
+                <div class="demo-box">
+                    <button class="btn btn-primary" onclick="alert('Tombol Utama diklik!')">Simpan Data</button>
+                    <button class="btn btn-outline" onclick="alert('Tombol Outline diklik!')">Batalkan</button>
                 </div>
-                <div class="form-group">
-                    <label>Dropdown:</label>
-                    <select>
-                        <option>Opsi 1</option>
-                        <option>Opsi 2</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label><input type="radio" name="gender"> Radio Button</label>
-                    <label><input type="checkbox"> Checkbox</label>
-                </div>
-                <div class="form-group">
-                    <label>Text Area:</label>
-                    <textarea rows="3"></textarea>
-                </div>
-            </form>
-        </div>
+                <!-- Area Kode -->
+                <div class="code-box">
+&lt;!-- Tombol Utama (Primary) --&gt;
+&lt;button class="btn btn-primary"&gt;
+    Simpan Data
+&lt;/button&gt;
 
-        <div class="card">
-            <h3>List & Loading Indicator</h3>
-            <ul>
-                <li>File Uploader Component</li>
-                <li>Rating Input Component</li>
-                <li>Stepper Component</li>
-            </ul>
-            <p>Status: <span style="color: orange;">Loading... (Loading Indicator)</span></p>
-        </div>
+&lt;!-- Tombol Garis Tepi (Outline) --&gt;
+&lt;button class="btn btn-outline"&gt;
+    Batalkan
+&lt;/button&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. CARD COMPONENT -->
+        <section class="component-section">
+            <div class="section-header">
+                <h2>🃏 Cards (Kartu)</h2>
+                <p>Kartu sangat bagus untuk mengelompokkan informasi. Sering digunakan untuk menampilkan artikel blog, produk, atau profil pengguna.</p>
+            </div>
+            <div class="demo-layout">
+                <div class="demo-box" style="background: transparent; border: none; padding: 0;">
+                    <!-- Komponen Card -->
+                    <div class="demo-card">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Coding">
+                        <h3>Belajar Koding</h3>
+                        <p>Memahami dasar-dasar HTML dan CSS untuk membangun tampilan antarmuka yang menarik.</p>
+                        <button class="btn btn-primary" style="margin: 0; width: 100%; font-size: 0.9rem;">Mulai Belajar</button>
+                    </div>
+                </div>
+                <div class="code-box">
+&lt;div class="demo-card"&gt;
+    &lt;img src="image.jpeg" alt="Gambar"&gt;
+    
+    &lt;h3&gt;Belajar Koding&lt;/h3&gt;
+    &lt;p&gt;Memahami dasar HTML & CSS.&lt;/p&gt;
+    
+    &lt;button class="btn btn-primary"&gt;
+        Mulai Belajar
+    &lt;/button&gt;
+&lt;/div&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. INPUT FORM COMPONENT -->
+        <section class="component-section">
+            <div class="section-header">
+                <h2>📝 Input Form (Formulir)</h2>
+                <p>Digunakan untuk mengambil data atau inputan dari pengguna. Desain form yang baik memiliki label yang jelas dan warna outline saat sedang diketik.</p>
+            </div>
+            <div class="demo-layout">
+                <div class="demo-box">
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" class="form-input" placeholder="Contoh: Budi Santoso">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Alamat Email</label>
+                        <input type="email" id="email" class="form-input" placeholder="budi@email.com">
+                    </div>
+                </div>
+                <div class="code-box">
+&lt;div class="form-group"&gt;
+    &lt;label for="nama"&gt;Nama Lengkap&lt;/label&gt;
+    &lt;input 
+        type="text" 
+        id="nama" 
+        class="form-input" 
+        placeholder="Contoh: Budi"
+    &gt;
+&lt;/div&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. TABS COMPONENT -->
+        <section class="component-section">
+            <div class="section-header">
+                <h2>🗂️ Navigasi Tabs</h2>
+                <p>Berguna ketika Anda ingin menghemat tempat dengan membagi konten ke dalam beberapa bagian yang bisa di-klik ganti.</p>
+            </div>
+            <div class="demo-layout">
+                <div class="demo-box">
+                    <ul class="demo-tabs" id="myTabs">
+                        <li class="active" onclick="gantiTab(this)">Profil</li>
+                        <li onclick="gantiTab(this)">Keamanan</li>
+                        <li onclick="gantiTab(this)">Notifikasi</li>
+                    </ul>
+                    <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">Klik salah satu menu di atas untuk mencoba efek interaktifnya.</p>
+                </div>
+                <div class="code-box">
+&lt;ul class="demo-tabs"&gt;
+    &lt;li class="active"&gt;Profil&lt;/li&gt;
+    &lt;li&gt;Keamanan&lt;/li&gt;
+    &lt;li&gt;Notifikasi&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- (Untuk interaksinya perlu --&gt;
+&lt;!-- sedikit Javascript) --&gt;
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <footer style="text-align: center; padding: 20px; background: #333; color: white; margin-top: 20px;">
-        <p>&copy; 2026 Raja Zhafar - KMTI UMY</p>
+    <footer>
+        <p>&copy; 2026 Panduan Belajar UI UX - Dibuat untuk pemula</p>
     </footer>
 
+    <!-- Script Sederhana untuk Efek Interaktif Tabs -->
+    <script>
+        function gantiTab(element) {
+            // Hapus kelas 'active' dari semua tab
+            const tabs = document.querySelectorAll('.demo-tabs li');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Tambahkan kelas 'active' ke tab yang sedang diklik
+            element.classList.add('active');
+        }
+    </script>
 </body>
 </html>
