@@ -3,454 +3,444 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panduan Dasar Komponen UI</title>
+    <title>Panduan Dasar Komponen UI Terlengkap</title>
     
-    <!-- Menggunakan font modern (Outfit) -->
+    <!-- Font modern & Ikon (FontAwesome) -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* CSS Variabel untuk memudahkan penggantian tema warna */
         :root {
-            --primary: #4F46E5;
-            --primary-hover: #4338CA;
-            --bg: #F9FAFB;
-            --surface: #FFFFFF;
-            --text-main: #111827;
-            --text-muted: #6B7280;
-            --border: #E5E7EB;
-            --code-bg: #1F2937;
-            --code-text: #E5E7EB;
-            --radius-md: 0.5rem;
-            --radius-lg: 0.75rem;
+            --primary: #4F46E5; --primary-hover: #4338CA;
+            --success: #10B981; --danger: #EF4444; 
+            --bg: #F9FAFB; --surface: #FFFFFF;
+            --text-main: #111827; --text-muted: #6B7280;
+            --border: #E5E7EB; --code-bg: #1F2937;
+            --code-text: #E5E7EB; --radius-md: 0.5rem;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text-main); line-height: 1.6; padding-bottom: 4rem; }
 
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding-bottom: 4rem;
-        }
+        /* Header & Tata Letak Dasar */
+        header { background: linear-gradient(135deg, var(--primary) 0%, #818CF8 100%); color: white; padding: 4rem 1rem; text-align: center; margin-bottom: 3rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border-bottom-left-radius: 2rem; border-bottom-right-radius: 2rem; }
+        header h1 { font-size: 2.8rem; margin-bottom: 0.5rem; letter-spacing: -0.05em; }
+        .container { max-width: 1000px; margin: auto; padding: 0 1.5rem; display: flex; flex-direction: column; gap: 2.5rem; }
 
-        /* 1. Halaman Header */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, #818CF8 100%);
-            color: white;
-            padding: 4rem 1rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border-bottom-left-radius: 2rem;
-            border-bottom-right-radius: 2rem;
-        }
+        /* Style Section */
+        .component-section { background: var(--surface); border-radius: var(--radius-md); padding: 2rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        .section-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px dashed var(--border); }
+        .section-header h2 { font-size: 1.6rem; color: var(--text-main); margin-bottom: 0.5rem; }
+        .section-header p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
 
-        header h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.05em;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 1rem auto 0 auto;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            padding: 0 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-        }
-
-        /* 2. Style Kotak Pembelajaran (Section) */
-        .component-section {
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
-            border: 1px solid var(--border);
-            transition: transform 0.2s;
-        }
+        /* Grid Layout */
+        .demo-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 768px) { .demo-layout { grid-template-columns: 1fr; } }
+        .demo-box { padding: 2rem; background: #F3F4F6; border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; border: 1px dashed #D1D5DB; }
         
-        .component-section:hover {
-            transform: translateY(-2px);
-            border-color: #C7D2FE;
-        }
+        .code-box { background: var(--code-bg); color: var(--code-text); padding: 2rem 1.5rem 1.5rem; border-radius: var(--radius-md); overflow-x: auto; font-family: 'Consolas', monospace; font-size: 0.85rem; position: relative; }
+        .code-box::before { content: "HTML"; position: absolute; top: 0; right: 0; background: #4B5563; color: white; padding: 0.2rem 0.8rem; border-radius: 0 0 0 var(--radius-md); font-size: 0.75rem; font-weight: bold; }
 
-        .section-header {
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px dashed var(--border);
-        }
-
-        .section-header h2 {
-            font-size: 1.8rem;
-            color: var(--text-main);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .section-header p {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        /* 3. Layout Grid Demo & Kode */
-        .demo-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: stretch;
-        }
-
-        @media (max-width: 768px) {
-            .demo-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .demo-box {
-            padding: 2rem;
-            background: #F3F4F6;
-            border-radius: var(--radius-md);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 1px dashed #D1D5DB;
-        }
-
-        /* Style Format Kode */
-        .code-box {
-            background: var(--code-bg);
-            color: var(--code-text);
-            padding: 2rem 1.5rem 1.5rem 1.5rem;
-            border-radius: var(--radius-md);
-            overflow-x: auto;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            position: relative;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .code-box::before {
-            content: "HTML";
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: #4B5563;
-            color: white;
-            padding: 0.2rem 0.8rem;
-            border-radius: 0 0 0 var(--radius-md);
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-
-        /* --- PUSAT GAYA KOMPONEN (Untuk di dalam kotak Demo) --- */
+        /* --- 1. Tipe Tombol & Link --- */
+        .btn { padding: 0.6rem 1.2rem; border: none; border-radius: var(--radius-md); font-family: inherit; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-submit { background: var(--success); color: white; width: 100%; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2); }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
         
-        /* Tombol (Buttons) */
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: var(--radius-md);
-            font-family: inherit;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin: 0.5rem;
-        }
+        /* Toggle Switch */
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--primary); }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        /* Floating Action Button (FAB) */
+        .fab { width: 50px; height: 50px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border: none; cursor: pointer; }
         
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
-        }
+        /* Anchor / Link */
+        .demo-link { color: var(--primary); text-decoration: none; font-weight: 600; }
+        .demo-link:hover { text-decoration: underline; color: var(--primary-hover); }
 
-        .btn-primary:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(79, 70, 229, 0.3);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .btn-outline:hover {
-            background-color: #EEF2FF;
-        }
-
-        /* Kartu (Cards) */
-        .demo-card {
-            background: white;
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 300px;
-            text-align: left;
-        }
+        /* --- 2. Input Formulir Terlengkap --- */
+        .form-group { width: 100%; max-width: 320px; margin-bottom: 1rem; text-align: left; }
+        .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; }
+        .form-input { width: 100%; padding: 0.7rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-md); font-family: inherit; }
+        .form-input:focus { outline: none; border-color: var(--primary); }
         
-        .demo-card img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border-radius: var(--radius-md);
-            margin-bottom: 1rem;
-        }
-
-        .demo-card h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.25rem;
-            color: var(--text-main);
-        }
+        /* Validation Message */
+        .input-error { border-color: var(--danger) !important; background: #FEF2F2; }
+        .msg-error { color: var(--danger); font-size: 0.8rem; margin-top: 4px; display: block; }
         
-        .demo-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Formulir (Forms) */
-        .form-group {
-            width: 100%;
-            max-width: 300px;
-            margin-bottom: 1rem;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--text-main);
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            font-family: inherit;
-            transition: all 0.2s;
-            background: white;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-
-        /* Tabs (Navigasi Kecil) */
-        .demo-tabs {
-            display: flex;
-            list-style: none;
-            background: #E5E7EB;
-            padding: 0.3rem;
-            border-radius: var(--radius-md);
-            gap: 0.2rem;
-            width: 100%;
-        }
-
-        .demo-tabs li {
-            flex: 1;
-            text-align: center;
-            padding: 0.6rem 1rem;
-            cursor: pointer;
-            border-radius: 0.4rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            transition: 0.2s;
-        }
-
-        .demo-tabs li.active {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .demo-tabs li:hover:not(.active) {
-            color: var(--text-main);
-            background: #D1D5DB;
-        }
+        /* Search Bar */
+        .search-wrap { display: flex; width: 100%; }
+        .search-wrap input { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+        .search-wrap button { border-top-left-radius: 0; border-bottom-left-radius: 0; border-radius: 0 var(--radius-md) var(--radius-md) 0; }
         
+        /* Radio, Checkbox, Select */
+        .check-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; cursor: pointer; }
+        .check-wrap input { width: 18px; height: 18px; accent-color: var(--primary); }
+        select.form-input { cursor: pointer; }
+
+        /* File Uploader & Captcha */
+        .file-drop { border: 2px dashed #9CA3AF; padding: 20px; text-align: center; border-radius: var(--radius-md); cursor: pointer; background: white; transition: 0.2s; }
+        .file-drop:hover { background: #EEF2FF; border-color: var(--primary); }
+        .captcha-box { border: 1px solid var(--border); padding: 10px; border-radius: 4px; background: white; display: flex; align-items: center; gap: 10px; width: fit-content; margin-top: 10px; }
+
+        /* --- 3. Navigasi & Struktur --- */
+        /* Breadcrumb (Jejak Halaman) */
+        .breadcrumb { display: flex; list-style: none; font-size: 0.9rem; }
+        .breadcrumb li { color: var(--text-muted); display: flex; align-items: center; }
+        .breadcrumb li::after { content: "/"; margin: 0 8px; color: #D1D5DB; }
+        .breadcrumb li:last-child::after { content: ""; }
+        .breadcrumb li.active { color: var(--primary); font-weight: 600; }
+
+        /* Tabs */
+        .demo-tabs { display: flex; list-style: none; background: #E5E7EB; padding: 0.3rem; border-radius: var(--radius-md); width: 100%; }
+        .demo-tabs li { flex: 1; text-align: center; padding: 0.5rem; cursor: pointer; border-radius: 0.4rem; font-size: 0.9rem; }
+        .demo-tabs li.active { background: white; color: var(--primary); font-weight: 600; }
+
+        /* Sidenav, Topbar, Profile Mockup */
+        .mini-dash { width: 100%; max-width: 320px; height: 220px; border: 1px solid var(--border); border-radius: var(--radius-md); display: flex; background: white; overflow: hidden; }
+        .m-side { width: 50px; background: #1F2937; display: flex; flex-direction: column; align-items: center; padding-top: 10px; gap: 15px; color: white; }
+        .m-content { flex: 1; display: flex; flex-direction: column; }
+        .m-top { height: 40px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 10px; background: #F9FAFB; }
+        .m-profile { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 600; }
+        .m-avatar { width: 24px; height: 24px; background: var(--primary); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+
+        /* --- 4. Data, Gambar & Carousel --- */
+        /* List */
+        .demo-list { padding-left: 20px; color: var(--text-main); margin-bottom: 1rem; }
+        /* Carousel (Slider) */
+        .carousel { display: flex; overflow-x: auto; gap: 10px; width: 100%; max-width: 320px; scroll-snap-type: x mandatory; padding-bottom: 5px; }
+        .carousel-item { flex: 0 0 85%; scroll-snap-align: start; background: white; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center; }
+        
+        /* --- 5. Indikator & Notifikasi --- */
+        /* Spinner (Loading / Coding indicator) */
+        .spinner { width: 40px; height: 40px; border: 4px solid #E5E7EB; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Toast / Notification / Nonjoction */
+        .toast { background: var(--success); color: white; padding: 10px 20px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 10px; font-weight: 600; width: 100%; max-width: 300px; }
+
         /* Footer */
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-        }
-
+        footer { margin-top: 4rem; text-align: center; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Panduan Dasar Komponen UI</h1>
-        <p>Belajar membuat elemen visual antarmuka website (UI) yang interaktif, modern, dan rapi untuk pemula.</p>
+        <h1>Panduan Dasar Komponen UI Terlengkap</h1>
+        <p>Berisi berbagai elemen UI interaktif dari mulai tombol (toggle, submit), form (file uploader, checkbox, validasi), indikator loading, navigasi, hingga slider.</p>
     </header>
 
     <div class="container">
-        
-        <!-- INTRO -->
-        <div style="background: #EEF2FF; padding: 1.5rem; border-radius: 0.75rem; border-left: 5px solid var(--primary);">
-            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">👋 Selamat Datang!</h3>
-            <p style="color: var(--text-main);">Halaman ini dirancang khusus untuk pemula. Di sebelah kiri, Anda bisa mencoba berinteraksi langsung dengan komponen UI. Di sebelah kanan, terdapat kode HTML nya yang bisa Anda pelajari dan tiru.</p>
-        </div>
 
-        <!-- 1. BUTTON COMPONENT -->
+        <!-- BAGIAN 1: TOMBOL & LINK -->
         <section class="component-section">
             <div class="section-header">
-                <h2>🖱️ Buttons (Tombol)</h2>
-                <p>Elemen interaktif utama dalam website. Gunakan warna berbeda untuk menunjukkan aksi utama (Primary) dan aksi pendukung (Secondary).</p>
+                <h2>1. 🖱️ Interaksi (Tombol & Link)</h2>
+                <p>Kumpulan elemen yang bisa ditekan oleh pengguna. Termasuk tombol Submit, Switch Toggle, Anchor (Link), Icon, dan Floating Action Button.</p>
             </div>
             <div class="demo-layout">
-                <!-- Area Tampilan -->
                 <div class="demo-box">
-                    <button class="btn btn-primary" onclick="alert('Tombol Utama diklik!')">Simpan Data</button>
-                    <button class="btn btn-outline" onclick="alert('Tombol Outline diklik!')">Batalkan</button>
+                    <button class="btn btn-submit">Submit Data</button>
+                    <!-- Toggle Checkbox -->
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <p style="font-size: 0.8rem; margin-top: -10px;">Toggle Btn</p>
+                    <!-- Floating Button & Link -->
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <button class="fab"><i class="fas fa-plus"></i></button>
+                        <a href="#" class="demo-link">Ini Anchor/Link <i class="fas fa-external-link-alt"></i></a>
+                    </div>
                 </div>
-                <!-- Area Kode -->
                 <div class="code-box">
-&lt;!-- Tombol Utama (Primary) --&gt;
-&lt;button class="btn btn-primary"&gt;
-    Simpan Data
+&lt;!-- Tombol Submit --&gt;
+&lt;button class="btn btn-submit"&gt;Submit Data&lt;/button&gt;
+
+&lt;!-- Toggle Button --&gt;
+&lt;label class="switch"&gt;
+    &lt;input type="checkbox" checked&gt;
+    &lt;span class="slider"&gt;&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Floating Action Button (FAB) dgn Icon --&gt;
+&lt;button class="fab"&gt;
+    &lt;i class="fas fa-plus"&gt;&lt;/i&gt;
 &lt;/button&gt;
 
-&lt;!-- Tombol Garis Tepi (Outline) --&gt;
-&lt;button class="btn btn-outline"&gt;
-    Batalkan
-&lt;/button&gt;
+&lt;!-- Anchor / Link Biasa --&gt;
+&lt;a href="#" class="demo-link"&gt;Teks Link&lt;/a&gt;
                 </div>
             </div>
         </section>
 
-        <!-- 2. CARD COMPONENT -->
+        <!-- BAGIAN 2: FORMULIR LENGKAP -->
         <section class="component-section">
             <div class="section-header">
-                <h2>🃏 Cards (Kartu)</h2>
-                <p>Kartu sangat bagus untuk mengelompokkan informasi. Sering digunakan untuk menampilkan artikel blog, produk, atau profil pengguna.</p>
+                <h2>2. 📝 Formulir & Input Lanjutan</h2>
+                <p>Bagian ini mencakup Search bar, Dropdown, Radio, Checkbox, pesan error (Validation Msg), File uploader, serta tiruan Chapca (Captcha).</p>
             </div>
             <div class="demo-layout">
-                <div class="demo-box" style="background: transparent; border: none; padding: 0;">
-                    <!-- Komponen Card -->
-                    <div class="demo-card">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Coding">
-                        <h3>Belajar Koding</h3>
-                        <p>Memahami dasar-dasar HTML dan CSS untuk membangun tampilan antarmuka yang menarik.</p>
-                        <button class="btn btn-primary" style="margin: 0; width: 100%; font-size: 0.9rem;">Mulai Belajar</button>
+                <div class="demo-box" style="align-items: flex-start;">
+                    <!-- Search Bar -->
+                    <div class="form-group search-wrap">
+                        <input type="text" class="form-input" placeholder="Cari data (Search Bar)...">
+                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                    </div>
+                    
+                    <!-- Validasi Input -->
+                    <div class="form-group">
+                        <label>Username (Ada Validation Msg)</label>
+                        <input type="text" class="form-input input-error" placeholder="Ketik nama...">
+                        <span class="msg-error"><i class="fas fa-exclamation-circle"></i> Nama tidak boleh kosong!</span>
+                    </div>
+
+                    <!-- Dropdown & Radio/Checkbox -->
+                    <div style="display: flex; gap: 20px; width: 100%;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Pilihan (Dropdown)</label>
+                            <select class="form-input">
+                                <option>Opsi A</option>
+                                <option>Opsi B</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Pilih Opsi</label>
+                            <label class="check-wrap"><input type="radio" name="r1" checked> Radio Btn</label>
+                            <label class="check-wrap"><input type="checkbox"> Checkbox</label>
+                        </div>
+                    </div>
+
+                    <!-- File Uploader & Captcha -->
+                    <div class="form-group">
+                        <div class="file-drop">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--primary);"></i>
+                            <p>Tarik & Lepas File (Uploader)</p>
+                        </div>
+                        <div class="captcha-box">
+                            <input type="checkbox" style="width: 20px; height: 20px;">
+                            <span>I'm not a robot (Captcha)</span>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/RecaptchaLogo.svg/120px-RecaptchaLogo.svg.png" height="20" alt="captcha" style="margin-left: auto;">
+                        </div>
                     </div>
                 </div>
                 <div class="code-box">
-&lt;div class="demo-card"&gt;
-    &lt;img src="image.jpeg" alt="Gambar"&gt;
-    
-    &lt;h3&gt;Belajar Koding&lt;/h3&gt;
-    &lt;p&gt;Memahami dasar HTML & CSS.&lt;/p&gt;
-    
-    &lt;button class="btn btn-primary"&gt;
-        Mulai Belajar
-    &lt;/button&gt;
+&lt;!-- Search Bar --&gt;
+&lt;div class="search-wrap"&gt;
+    &lt;input type="text" class="form-input"&gt;
+    &lt;button class="btn btn-primary"&gt;Cari&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Input dgn Validation Message --&gt;
+&lt;input type="text" class="form-input input-error"&gt;
+&lt;span class="msg-error"&gt;Error: Isi data ini!&lt;/span&gt;
+
+&lt;!-- Dropdown (Select) --&gt;
+&lt;select class="form-input"&gt;
+    &lt;option&gt;Pilihan 1&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- Checkbox & Radio --&gt;
+&lt;label&gt;&lt;input type="radio" name="x"&gt; Radio&lt;/label&gt;
+&lt;label&gt;&lt;input type="checkbox"&gt; Checkbox&lt;/label&gt;
+
+&lt;!-- File Uploader Kotak --&gt;
+&lt;div class="file-drop"&gt;Upload File Di Sini&lt;/div&gt;
+
+&lt;!-- Dummy Captcha --&gt;
+&lt;div class="captcha-box"&gt;
+    &lt;input type="checkbox"&gt; I'm not a robot
 &lt;/div&gt;
                 </div>
             </div>
         </section>
 
-        <!-- 3. INPUT FORM COMPONENT -->
+        <!-- BAGIAN 3: NAVIGASI -->
         <section class="component-section">
             <div class="section-header">
-                <h2>📝 Input Form (Formulir)</h2>
-                <p>Digunakan untuk mengambil data atau inputan dari pengguna. Desain form yang baik memiliki label yang jelas dan warna outline saat sedang diketik.</p>
+                <h2>3. 🧭 Navigasi & Struktur (Tata Letak)</h2>
+                <p>Kumpulan elemen navigasi Web. Termasuk Breadcrumb (Jejak atau Broad Number), Tabs, Serta tiruan Layout Top Bar, Side Nav, dan Profile Bar.</p>
             </div>
             <div class="demo-layout">
                 <div class="demo-box">
-                    <div class="form-group">
-                        <label for="nama">Nama Lengkap</label>
-                        <input type="text" id="nama" class="form-input" placeholder="Contoh: Budi Santoso">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Alamat Email</label>
-                        <input type="email" id="email" class="form-input" placeholder="budi@email.com">
-                    </div>
-                </div>
-                <div class="code-box">
-&lt;div class="form-group"&gt;
-    &lt;label for="nama"&gt;Nama Lengkap&lt;/label&gt;
-    &lt;input 
-        type="text" 
-        id="nama" 
-        class="form-input" 
-        placeholder="Contoh: Budi"
-    &gt;
-&lt;/div&gt;
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. TABS COMPONENT -->
-        <section class="component-section">
-            <div class="section-header">
-                <h2>🗂️ Navigasi Tabs</h2>
-                <p>Berguna ketika Anda ingin menghemat tempat dengan membagi konten ke dalam beberapa bagian yang bisa di-klik ganti.</p>
-            </div>
-            <div class="demo-layout">
-                <div class="demo-box">
-                    <ul class="demo-tabs" id="myTabs">
-                        <li class="active" onclick="gantiTab(this)">Profil</li>
-                        <li onclick="gantiTab(this)">Keamanan</li>
-                        <li onclick="gantiTab(this)">Notifikasi</li>
+                    <!-- Breadcrumbs (Broad Number) -->
+                    <ul class="breadcrumb" style="align-self: flex-start; margin-bottom: 10px;">
+                        <li><i class="fas fa-home" style="margin-right: 5px;"></i> Home</li>
+                        <li>Dashboard</li>
+                        <li class="active">Settings</li>
                     </ul>
-                    <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">Klik salah satu menu di atas untuk mencoba efek interaktifnya.</p>
+
+                    <!-- Tabs -->
+                    <ul class="demo-tabs">
+                        <li class="active">Profile</li>
+                        <li>Security</li>
+                        <li>Emails</li>
+                    </ul>
+
+                    <!-- Mockup Dashboard Layout -->
+                    <div class="mini-dash" style="margin-top: 15px;">
+                        <!-- Side Nav -->
+                        <div class="m-side">
+                            <i class="fas fa-bars"></i>
+                            <i class="fas fa-home"></i>
+                            <i class="fas fa-folder"></i>
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="m-content">
+                            <!-- Top Bar & Profile -->
+                            <div class="m-top">
+                                <span style="font-size: 0.8rem; font-weight: bold;">Top Navigation</span>
+                                <div class="m-profile">
+                                    Admin
+                                    <div class="m-avatar">A</div>
+                                </div>
+                            </div>
+                            <div style="padding: 10px;">
+                                <div style="height: 10px; width: 80%; background: #E5E7EB; margin-bottom: 10px; border-radius: 4px;"></div>
+                                <div style="height: 10px; width: 60%; background: #E5E7EB; border-radius: 4px;"></div>
+                                <p style="font-size: 0.7rem; color: #6B7280; margin-top: 20px;">^ Side Nav, Top bar, Profile bar terapkan layout ini (flexbox).</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="code-box">
-&lt;ul class="demo-tabs"&gt;
-    &lt;li class="active"&gt;Profil&lt;/li&gt;
-    &lt;li&gt;Keamanan&lt;/li&gt;
-    &lt;li&gt;Notifikasi&lt;/li&gt;
+&lt;!-- Breadcrumb (Broad number / Jejak Halaman) --&gt;
+&lt;ul class="breadcrumb"&gt;
+    &lt;li&gt;Home&lt;/li&gt;
+    &lt;li&gt;Produk&lt;/li&gt;
+    &lt;li class="active"&gt;Detail&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;!-- (Untuk interaksinya perlu --&gt;
-&lt;!-- sedikit Javascript) --&gt;
+&lt;!-- Tabs --&gt;
+&lt;ul class="demo-tabs"&gt;
+    &lt;li class="active"&gt;Tab 1&lt;/li&gt;
+    &lt;li&gt;Tab 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Konsep Layout Sidenav & Topbar (Flex) --&gt;
+&lt;div class="layout-flex-row"&gt;
+    &lt;div class="sidebar"&gt; Nav Side &lt;/div&gt;
+    &lt;div class="main-content"&gt;
+        &lt;div class="top-bar"&gt;
+            Top Nav & Profile Bar
+        &lt;/div&gt;
+        &lt;div class="content"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- BAGIAN 4: DATA & GAMBAR -->
+        <section class="component-section">
+            <div class="section-header">
+                <h2>4. 🖼️ Data Display (Daftar & Carousel)</h2>
+                <p>Menampilkan item beruntun. Dari list HTML standar, gambar (img), hingga elemen yang bisa digeser bernama Carousel (Slider Caraust).</p>
+            </div>
+            <div class="demo-layout">
+                <div class="demo-box">
+                    <!-- Standard List -->
+                    <ul class="demo-list">
+                        <li>Elemen List 1</li>
+                        <li>Elemen List 2</li>
+                    </ul>
+
+                    <!-- Gambar Biasa -->
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=300&q=80" alt="Coding img" style="width: 100%; border-radius: 8px; margin-bottom: 15px; height: 100px; object-fit: cover;">
+                    <p style="font-size: 0.8rem; margin-top: -10px; margin-bottom: 10px;">Gambar (IMG)</p>
+
+                    <!-- Carousel / Slider -->
+                    <div class="carousel">
+                        <div class="carousel-item">
+                            <h4>geser 👉</h4>
+                            <p>Slider Card 1</p>
+                        </div>
+                        <div class="carousel-item">
+                            <h4>Slider 2</h4>
+                            <p>Bisa digeser ke Kiri/Kanan</p>
+                        </div>
+                        <div class="carousel-item">
+                            <h4>Akhir Slider</h4>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.8rem; text-align: center; color: var(--text-muted); margin-top: 5px;">Mekanisme Carousel (Slider Caraust)</p>
+                </div>
+                <div class="code-box">
+&lt;!-- Daftar List (Unordered List) --&gt;
+&lt;ul&gt;
+    &lt;li&gt;Item Baris Satu&lt;/li&gt;
+    &lt;li&gt;Item Baris Dua&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Gambar (IMG) --&gt;
+&lt;img src="linkgambar.jpg" alt="Penjelasan"&gt;
+
+&lt;!-- Carousel (Slider yg digeser horizontal) --&gt;
+&lt;div style="display: flex; overflow-x: auto;"&gt;
+    &lt;div class="kartu-slider"&gt;Slide 1&lt;/div&gt;
+    &lt;div class="kartu-slider"&gt;Slide 2&lt;/div&gt;
+&lt;/div&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- BAGIAN 5: FEEDBACK & INDIKATOR -->
+        <section class="component-section">
+            <div class="section-header">
+                <h2>5. ⏳ Feedback & Notifikasi</h2>
+                <p>Pemberitahuan kepada sistem seperti Indikator Loading (Coding Indicator) dan Kotak Toast/Notification (Nonjoction).</p>
+            </div>
+            <div class="demo-layout">
+                <div class="demo-box">
+                    <!-- Loading Spinner -->
+                    <div class="spinner"></div>
+                    <p style="font-size: 0.8rem; margin-bottom: 20px;">Loading Indicator (Animasi Putar)</p>
+
+                    <!-- Notification Toast -->
+                    <div class="toast">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <span style="display: block; font-size: 0.9rem;">Berhasil (Notification)</span>
+                            <span style="font-size: 0.75rem; font-weight: 400;">Data sukses disimpan!</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="code-box">
+&lt;!-- Loading / Spinner Bulat --&gt;
+&lt;div class="spinner"&gt;&lt;/div&gt;
+
+&lt;!-- CSS Loadingnya: --&gt;
+&lt;style&gt;
+.spinner {
+    border: 4px solid #E5E7EB;
+    border-top: 4px solid blue;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin { 
+    100% { transform: rotate(360deg); } 
+}
+&lt;/style&gt;
+
+&lt;!-- Notification Box (Toast / Pemberitahuan) --&gt;
+&lt;div class="toast"&gt;
+    &lt;i class="fas fa-check"&gt;&lt;/i&gt; Peringatan!
+&lt;/div&gt;
                 </div>
             </div>
         </section>
 
     </div>
 
+    <!-- HEADER & FOOTER EXPLANATION -->
     <footer>
-        <p>&copy; 2026 Panduan Belajar UI UX - Dibuat untuk pemula</p>
+        <p style="font-weight: 600; font-size: 1.1rem; color: var(--text-main);">&copy; 2026 Belajar UI Tingkat Lanjut</p>
+        <p style="font-size: 0.9rem;">Bagian atas yang berwarna ungu gradient adalah implementasi <b>Header</b>. Dan tulisan paling bawah ini adalah <b>Footer</b>.</p>
     </footer>
 
-    <!-- Script Sederhana untuk Efek Interaktif Tabs -->
-    <script>
-        function gantiTab(element) {
-            // Hapus kelas 'active' dari semua tab
-            const tabs = document.querySelectorAll('.demo-tabs li');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            // Tambahkan kelas 'active' ke tab yang sedang diklik
-            element.classList.add('active');
-        }
-    </script>
 </body>
 </html>
